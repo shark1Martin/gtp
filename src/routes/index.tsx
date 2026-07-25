@@ -85,12 +85,16 @@ function Index() {
               Progress
             </div>
             <div className="flex gap-1">
-              {Array.from({ length: TOTAL }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`h-1 w-3 sm:w-5 ${i < current || phase === "done" ? "bg-racing-red" : i === current && phase !== "done" ? "bg-white/60" : "bg-white/15"}`}
-                />
-              ))}
+              {Array.from({ length: TOTAL }).map((_, i) => {
+                const done = phase === "done";
+                const cls =
+                  done || i < current
+                    ? "bg-racing-red"
+                    : i === current
+                      ? "bg-white/60"
+                      : "bg-white/15";
+                return <div key={i} className={`h-1 w-3 sm:w-5 ${cls}`} />;
+              })}
             </div>
           </div>
           <div className="text-right">
