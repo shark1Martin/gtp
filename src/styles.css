@@ -4,6 +4,34 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-racing-red: #E30613;
+  --color-racing-green: #21C55D;
+  --font-display: "Anton", "Impact", sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --ease-snap: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@keyframes quiz-entrance {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes quiz-snap {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+@utility animate-entrance {
+  animation: quiz-entrance 600ms var(--ease-snap) both;
+}
+
+@utility animate-snap {
+  animation: quiz-snap 200ms var(--ease-snap);
+}
+
 /*
  * Design system definition.
  *
