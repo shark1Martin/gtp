@@ -1,0 +1,7 @@
+<svg width="1280" height="800" viewBox="0 0 1280 800" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="800" fill="#18181b"/>
+  <rect x="1" y="1" width="1278" height="798" fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="2"/>
+  <circle cx="56" cy="56" r="6" fill="#E30613"/>
+  <text x="640" y="380" font-size="56" fill="#ffffff" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" letter-spacing="2">TAYCAN</text>
+  <text x="640" y="424" font-size="20" fill="#71717a" text-anchor="middle" font-family="monospace" letter-spacing="4">FRONT &#8226; PLACEHOLDER</text>
+</svg>
