@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { buildQuiz, getCarImagePath, MODELS, type Question } from "@/lib/quiz-data";
+import { buildQuiz, getCarImagePath, getImageCredit, MODELS, type Question } from "@/lib/quiz-data";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import { AuthDialog } from "@/components/auth-dialog";
@@ -46,6 +46,7 @@ function Index() {
   const q = questions[current];
   const angleCount = q?.answer.angles.length ?? 1;
   const currentAngle = q?.answer.angles[angleIndex % angleCount];
+  const credit = q && currentAngle ? getImageCredit(q.answer.id, currentAngle) : undefined;
   const score = correctCount * POINTS_PER_CORRECT;
   const accuracy = current === 0 && phase === "answering" ? 0 : Math.round((correctCount / (phase === "answering" ? current : current + 1)) * 100);
 
@@ -233,6 +234,17 @@ function Index() {
                   Frame {String(current + 1).padStart(2, "0")}/{TOTAL}
                 </span>
               </div>
+
+              {credit && (
+                <a
+                  href={credit.source}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute top-3 right-3 font-mono text-[10px] text-white/30 hover:text-white/70 transition-colors bg-[#0D0D0D]/60 px-2 py-1"
+                >
+                  Photo: {credit.photographer} &#8226; {credit.license}
+                </a>
+              )}
             </div>
 
             <div className="max-w-2xl">
