@@ -81,9 +81,18 @@ export function AuthDialog({
       setSubmitting(true);
     }
 
-    const result =
-      mode === "sign-in" ? await signIn(email, password) : await signUp(email, password, displayName.trim());
+    if (mode === "sign-in") {
+      const result = await signIn(email, password);
+      setSubmitting(false);
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
+      handleOpenChange(false);
+      return;
+    }
 
+    const result = await signUp(email, password, displayName.trim());
     setSubmitting(false);
 
     if (result.error) {
@@ -91,14 +100,16 @@ export function AuthDialog({
       return;
     }
 
-    if (mode === "sign-up") {
-      setInfo("Account created. Check your email to confirm, then sign in.");
-      setMode("sign-in");
-      setPassword("");
+    // Email confirmation may be disabled, in which case signUp already
+    // signed the user in and there's nothing left to confirm.
+    if (result.signedIn) {
+      handleOpenChange(false);
       return;
     }
 
-    handleOpenChange(false);
+    setInfo("Account created. Check your email to confirm, then sign in.");
+    setMode("sign-in");
+    setPassword("");
   }
 
   return (
