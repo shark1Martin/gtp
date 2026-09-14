@@ -1,6 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { buildQuiz, getCarImagePath, MODELS, type Question } from "@/lib/quiz-data";
+import { useAuth } from "@/lib/auth";
+import { supabase } from "@/lib/supabase";
+import { AuthDialog } from "@/components/auth-dialog";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -28,6 +31,8 @@ const TOTAL = MODELS.length;
 const POINTS_PER_CORRECT = 450;
 
 function Index() {
+  const { user, signOut } = useAuth();
+  const [authOpen, setAuthOpen] = useState(false);
   const [seed, setSeed] = useState(0);
   const questions = useMemo<Question[]>(() => buildQuiz(TOTAL), [seed]);
   const [current, setCurrent] = useState(0);
@@ -35,12 +40,24 @@ function Index() {
   const [selected, setSelected] = useState<number | null>(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [phase, setPhase] = useState<"answering" | "revealed" | "done">("answering");
+  const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const savedRunRef = useRef(-1);
 
   const q = questions[current];
   const angleCount = q?.answer.angles.length ?? 1;
   const currentAngle = q?.answer.angles[angleIndex % angleCount];
   const score = correctCount * POINTS_PER_CORRECT;
   const accuracy = current === 0 && phase === "answering" ? 0 : Math.round((correctCount / (phase === "answering" ? current : current + 1)) * 100);
+
+  useEffect(() => {
+    if (phase !== "done" || !user || savedRunRef.current === seed) return;
+    savedRunRef.current = seed;
+    setSaveState("saving");
+    supabase
+      .from("scores")
+      .insert({ user_id: user.id, correct_count: correctCount, total: TOTAL, score })
+      .then(({ error }) => setSaveState(error ? "error" : "saved"));
+  }, [phase, user, seed, correctCount, score]);
 
   function handleSelect(i: number) {
     if (phase !== "answering") return;
@@ -67,6 +84,7 @@ function Index() {
     setSelected(null);
     setCorrectCount(0);
     setPhase("answering");
+    setSaveState("idle");
   }
 
   function cycleAngle(direction: 1 | -1) {
@@ -114,8 +132,41 @@ function Index() {
               {score.toLocaleString()}
             </div>
           </div>
+          <div className="text-right hidden md:block">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mb-1">
+              Standings
+            </div>
+            <Link
+              to="/leaderboard"
+              className="font-mono text-xs uppercase tracking-widest hover:text-racing-red transition-colors"
+            >
+              Leaderboard
+            </Link>
+          </div>
+          <div className="text-right">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mb-1">
+              Account
+            </div>
+            {user ? (
+              <button
+                onClick={() => signOut()}
+                className="font-mono text-xs uppercase tracking-widest hover:text-racing-red transition-colors cursor-pointer"
+              >
+                Sign Out
+              </button>
+            ) : (
+              <button
+                onClick={() => setAuthOpen(true)}
+                className="font-mono text-xs uppercase tracking-widest hover:text-racing-red transition-colors cursor-pointer"
+              >
+                Sign In
+              </button>
+            )}
+          </div>
         </div>
       </nav>
+
+      <AuthDialog open={authOpen} onOpenChange={setAuthOpen} />
 
       {phase === "done" ? (
         <ResultsScreen
@@ -123,6 +174,9 @@ function Index() {
           total={TOTAL}
           score={score}
           onRestart={handleRestart}
+          isSignedIn={!!user}
+          saveState={saveState}
+          onSignIn={() => setAuthOpen(true)}
         />
       ) : (
         <main className="max-w-6xl mx-auto px-6 pt-12 pb-32 grid lg:grid-cols-[1fr_400px] gap-12 items-start">
@@ -297,11 +351,17 @@ function ResultsScreen({
   total,
   score,
   onRestart,
+  isSignedIn,
+  saveState,
+  onSignIn,
 }: {
   correctCount: number;
   total: number;
   score: number;
   onRestart: () => void;
+  isSignedIn: boolean;
+  saveState: "idle" | "saving" | "saved" | "error";
+  onSignIn: () => void;
 }) {
   const accuracy = Math.round((correctCount / total) * 100);
   const grade =
@@ -329,6 +389,30 @@ function ResultsScreen({
         <Stat label="Accuracy" value={`${accuracy}%`} />
         <Stat label="Score" value={score.toLocaleString()} />
         <Stat label="Rank" value={grade} />
+      </div>
+
+      <div className="mb-8 font-mono text-xs uppercase tracking-widest">
+        {isSignedIn ? (
+          saveState === "saved" ? (
+            <span className="text-racing-green">
+              Score saved.{" "}
+              <Link to="/leaderboard" className="underline hover:text-white">
+                View leaderboard
+              </Link>
+            </span>
+          ) : saveState === "error" ? (
+            <span className="text-racing-red">Could not save your score. Try again next run.</span>
+          ) : (
+            <span className="text-white/40">Saving score...</span>
+          )
+        ) : (
+          <span className="text-white/40">
+            <button onClick={onSignIn} className="underline hover:text-racing-red cursor-pointer">
+              Sign in
+            </button>{" "}
+            to save this score and appear on the leaderboard.
+          </span>
+        )}
       </div>
 
       <div className="flex flex-col sm:flex-row gap-4">
