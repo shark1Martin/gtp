@@ -1,0 +1,142 @@
+{
+  "718-boxster": {
+    "front": [
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side.jpg"
+    ],
+    "rear": [
+      "rear.jpg"
+    ]
+  },
+  "718-cayman": {
+    "front": [
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side.jpg"
+    ],
+    "rear": [
+      "rear.jpg"
+    ]
+  },
+  "911-cabriolet": {
+    "front": [
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side.jpg"
+    ],
+    "rear": [
+      "rear.jpg"
+    ]
+  },
+  "911-carrera": {
+    "front": [
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side.jpg"
+    ],
+    "rear": [
+      "rear.jpg"
+    ]
+  },
+  "911-targa": {
+    "front": [
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side.jpg"
+    ],
+    "rear": [
+      "rear.jpg"
+    ]
+  },
+  "918-spyder": {
+    "front": [
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side.jpg"
+    ],
+    "rear": [
+      "rear.jpg"
+    ]
+  },
+  "cayenne": {
+    "front": [
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side.jpg"
+    ],
+    "rear": [
+      "rear.jpg"
+    ]
+  },
+  "macan": {
+    "front": [
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side.jpg"
+    ],
+    "rear": [
+      "rear.jpg"
+    ]
+  },
+  "panamera": {
+    "front": [
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side.jpg"
+    ],
+    "rear": [
+      "rear.jpg"
+    ]
+  },
+  "taycan": {
+    "front": [
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side.jpg"
+    ],
+    "rear": [
+      "rear.jpg"
+    ]
+  }
+}

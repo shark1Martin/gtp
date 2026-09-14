@@ -4,6 +4,9 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
+    "generate:cars": "node scripts/generate-car-manifest.mjs",
+    "predev": "npm run generate:cars",
+    "prebuild": "npm run generate:cars",
     "dev": "vite dev",
     "build": "vite build",
     "build:dev": "vite build --mode development",
