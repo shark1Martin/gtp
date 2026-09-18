@@ -30,7 +30,8 @@ public/cars/<model-id>/<angle>-3.<ext>
 ```
 
 - **`<angle>`** — exactly one of: `front`, `three-quarter`, `side`, `rear`
-- **`<ext>`** — `jpg`, `jpeg`, or `png`
+  (`back` is accepted as a synonym for `rear`)
+- **`<ext>`** — `jpg`, `jpeg`, `png`, `webp`, or `avif`
 - The **first** photo of an angle has no number: `side.jpg`
 - Each **additional** photo of the same angle gets `-2`, `-3`, etc.:
   `side-2.jpg`, `side-3.jpg`
@@ -98,14 +99,14 @@ require share-alike.
 3. Play through the quiz until that model comes up, and cycle its angles
    with the arrow buttons to check the new photo(s) look right.
 
-## Adding a brand-new model (example: 911 GT3 RS)
+## Adding a brand-new model (example: 911 Turbo)
 
 1. **Pick an id.** Kebab-case, matches how you'll name the folder:
-   `911-gt3-rs`.
+   `911-turbo`.
 
 2. **Create the folder and add photos.**
    ```
-   public/cars/911-gt3-rs/
+   public/cars/911-turbo/
      front.jpg
      three-quarter.jpg
      side.jpg
@@ -113,7 +114,7 @@ require share-alike.
    ```
    Add at least one photo per angle before enabling the model in step 3 —
    an angle with zero photos falls back to a "PLACEHOLDER" SVG card if one
-   exists at `public/cars/911-gt3-rs/<angle>.svg`, or shows a broken image
+   exists at `public/cars/911-turbo/<angle>.svg`, or shows a broken image
    if neither exists.
 
 3. **Register the model** in `src/lib/quiz-data.ts`, in the `MODELS` array:
@@ -121,7 +122,7 @@ require share-alike.
    export const MODELS: PorscheModel[] = [
      { id: "911-carrera", name: "911 Carrera", angles: ALL_ANGLES },
      // ...
-     { id: "911-gt3-rs", name: "911 GT3 RS", angles: ALL_ANGLES },
+     { id: "911-turbo", name: "911 Turbo", angles: ALL_ANGLES },
    ];
    ```
    The `name` is what's shown as an answer choice in the quiz.

@@ -12,13 +12,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "A precision motorsport-style quiz: identify iconic Porsche models from a single studio image. Ten rounds. No mercy.",
+          "A precision motorsport-style quiz: identify iconic Porsche models from a single studio image. One round per model. No mercy.",
       },
       { property: "og:title", content: "Guess the Porsche — Model ID Quiz" },
       {
         property: "og:description",
         content:
-          "Ten rounds. Four options. Identify the Porsche from a single studio image.",
+          "One round per model. Four options. Identify the Porsche from a single studio image.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -238,16 +238,23 @@ function Index() {
                 </span>
               </div>
 
-              {carImage?.credit && (
-                <a
-                  href={carImage.credit.source}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute top-3 right-3 font-mono text-[10px] text-white/30 hover:text-white/70 transition-colors bg-[#0D0D0D]/60 px-2 py-1"
-                >
-                  Photo: {carImage.credit.photographer} &#8226; {carImage.credit.license}
-                </a>
-              )}
+              {carImage?.credit &&
+                (phase === "revealed" ? (
+                  <a
+                    href={carImage.credit.source}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute top-3 right-3 font-mono text-[10px] text-white/30 hover:text-white/70 transition-colors bg-[#0D0D0D]/60 px-2 py-1"
+                  >
+                    Photo: {carImage.credit.photographer} &#8226; {carImage.credit.license}
+                  </a>
+                ) : (
+                  // Plain text until the answer is revealed: the source URL
+                  // names the model and would give the answer away.
+                  <span className="absolute top-3 right-3 font-mono text-[10px] text-white/30 bg-[#0D0D0D]/60 px-2 py-1">
+                    Photo: {carImage.credit.photographer} &#8226; {carImage.credit.license}
+                  </span>
+                ))}
             </div>
 
             <div className="max-w-2xl">

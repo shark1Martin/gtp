@@ -1,7 +1,7 @@
 # Guess the Porsche
 
 A quick-fire quiz: look at a photo of a Porsche and pick the right model line
-from four options. Ten rounds, one per model, with a score and a rank at the
+from four options. One round per model, with a score and a rank at the
 end. Sign in to save your scores and appear on the leaderboard.
 
 ## Stack

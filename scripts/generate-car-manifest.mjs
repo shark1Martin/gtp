@@ -6,8 +6,9 @@
 //   <angle>.<ext>        first photo for that angle
 //   <angle>-2.<ext>       second photo for that angle
 //   <angle>-3.<ext>       third, and so on
-// angle is one of: front, three-quarter, side, rear
-// ext is one of: jpg, jpeg, png
+// angle is one of: front, three-quarter, side, rear ("back" is accepted
+// as a synonym for rear)
+// ext is one of: jpg, jpeg, png, webp, avif
 //
 // Runs automatically before `npm run dev` and `npm run build` (see
 // package.json's predev/prebuild scripts). Run it manually with
@@ -22,7 +23,7 @@ const carsDir = join(__dirname, "..", "public", "cars");
 const outFile = join(__dirname, "..", "src", "lib", "car-photos.generated.json");
 
 const ANGLES = ["front", "three-quarter", "side", "rear"];
-const PHOTO_PATTERN = /^(front|three-quarter|side|rear)(?:-(\d+))?\.(jpe?g|png)$/i;
+const PHOTO_PATTERN = /^(front|three-quarter|side|rear|back)(?:-(\d+))?\.(jpe?g|png|webp|avif)$/i;
 
 const manifest = {};
 
@@ -36,7 +37,7 @@ for (const modelId of readdirSync(carsDir)) {
     const match = file.match(PHOTO_PATTERN);
     if (!match) continue;
     const angle = match[1].toLowerCase();
-    byAngle[angle].push(file);
+    byAngle[angle === "back" ? "rear" : angle].push(file);
   }
 
   for (const angle of ANGLES) {

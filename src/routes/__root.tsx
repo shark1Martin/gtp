@@ -77,12 +77,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Guess the Porsche" },
       {
         name: "description",
-        content: "Identify Porsche models from photos. Ten rounds, four options each.",
+        content: "Identify Porsche models from photos. One round per model, four options each.",
       },
       { property: "og:title", content: "Guess the Porsche" },
       {
         property: "og:description",
-        content: "Identify Porsche models from photos. Ten rounds, four options each.",
+        content: "Identify Porsche models from photos. One round per model, four options each.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

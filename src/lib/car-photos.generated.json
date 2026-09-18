@@ -27,6 +27,92 @@
       "rear.jpg"
     ]
   },
+  "911-991-gt3": {
+    "front": [
+      "front-2.jpg",
+      "front-3.jpg",
+      "front.webp"
+    ],
+    "three-quarter": [
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side-2.jpg",
+      "side-3.jpg",
+      "side.jpg"
+    ],
+    "rear": [
+      "back.jpg"
+    ]
+  },
+  "911-991-gt3-rs": {
+    "front": [
+      "front-2.jpg",
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter-2.webp",
+      "three-quarter.avif"
+    ],
+    "side": [
+      "side-2.jpg",
+      "side.jpg"
+    ],
+    "rear": [
+      "back-2.jpg",
+      "back.jpg"
+    ]
+  },
+  "911-992-gt3": {
+    "front": [
+      "front-2.jpg",
+      "front-3.jpg",
+      "front-4.jpg",
+      "front-5.webp",
+      "front.jpg"
+    ],
+    "three-quarter": [
+      "three-quarter-2.jpg",
+      "three-quarter-3.jpg",
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side-2.jpg",
+      "side-3.webp",
+      "side.webp"
+    ],
+    "rear": [
+      "back-2.jpg",
+      "back-3.webp",
+      "back-4.jpg",
+      "back.webp"
+    ]
+  },
+  "911-992-gt3-rs": {
+    "front": [
+      "front-2.avif",
+      "front-3.webp",
+      "front-4.webp",
+      "front.avif"
+    ],
+    "three-quarter": [
+      "three-quarter-2.webp",
+      "three-quarter-3.avif",
+      "three-quarter-4.jpg",
+      "three-quarter-5.webp",
+      "three-quarter.jpg"
+    ],
+    "side": [
+      "side-2.webp",
+      "side-3.webp",
+      "side.webp"
+    ],
+    "rear": [
+      "back-2.jpg",
+      "back-3.jpg",
+      "back.jpg"
+    ]
+  },
   "911-cabriolet": {
     "front": [
       "front.jpg"
